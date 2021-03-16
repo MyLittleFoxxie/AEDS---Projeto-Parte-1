@@ -125,7 +125,9 @@ int main ()
 
     //Escaneia cada elemento e insere no vetor
 	for (int i = 0; i < qtdItens; i++)
-		fscanf(arquivo, "%d", &elementosLista[i]);
-
+    {
+        fscanf(arquivo, "%d", &elementosLista[i]);
+    }
+    
     procurarPadrao(elementosLista, qtdItens);
 }
