@@ -8,11 +8,13 @@ Data:19/03/21
 
 ****************/
 
+#include <stdio.h>
+
 void procurarPadrao(int* elementosLista, int tamanho)
 {
     int padrao = 0;
 
-    for (size_t i = 0; i < tamanho; i++)
+    for (int i = 0; i < tamanho; i++)
     {
         switch (padrao)
         {
@@ -106,8 +108,6 @@ void procurarPadrao(int* elementosLista, int tamanho)
 
 
 //Estamos buscando a sequência 1 3 2 3 1 em um arquivo texto
-#include <stdio.h>
-
 int main () 
 {
     FILE *arquivo;
