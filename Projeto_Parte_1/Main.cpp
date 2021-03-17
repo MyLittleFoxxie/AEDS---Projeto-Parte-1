@@ -13,7 +13,7 @@ Data:19/03/21
 void procurarPadrao(int* elementosLista, int tamanho)
 {
     int padrao = 0;
-    int resultado= 0;
+    int resultado = 0;
 
     for (int i = 0; i < tamanho; i++)
     {
