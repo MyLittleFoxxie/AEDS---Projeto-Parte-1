@@ -7,11 +7,49 @@ Alunos(as): Vitor Brandão Raposo e Gabriel Bernalle
 Data:19/03/21
 
 ****************/
-
+#include <stdlib.h>
 #include <stdio.h>
+
+void reduzPadrao(int* elementosLista, int tamanho);
+void procurarPadrao(int* elementosLista, int tamanho);
+
+void mapeiaPadrao(int* elementosLista, int tamanho){
+	int listaFinal[tamanho];
+
+	for(int i = 0; i < tamanho; i++){
+		if(elementosLista[i] == 0) listaFinal[i] = 1; 
+		if(elementosLista[i] == 128) listaFinal[i] = 2; 
+		if(elementosLista[i] == 255) listaFinal[i] = 3; 
+	}
+
+	procurarPadrao(listaFinal, tamanho);
+}
+
+void reduzPadrao(int* elementosLista, int tamanho){
+	int *auxList;
+	auxList = (int*) malloc(tamanho * sizeof (int));
+	auxList[0] = elementosLista[0];
+	int aux = elementosLista[0];
+	int j = 0;
+
+	for(int i = 0; i < tamanho; i++){
+		if(elementosLista[i] != aux){
+			j++;
+			auxList[j] = elementosLista[i];
+			aux = elementosLista[i];
+			printf("%d ",auxList[j]); //-- Funfando --
+		}
+	}
+
+	mapeiaPadrao(auxList, j+1);
+}
 
 void procurarPadrao(int* elementosLista, int tamanho)
 {
+	printf("\n");
+	for(int i = 0; i < tamanho; i++) printf("%d ",elementosLista[i]);
+	printf("\n%d", tamanho);// -- Tá chegando os números certos --
+
     int padrao = 0;
     int resultado = 0;
 
@@ -97,14 +135,8 @@ void procurarPadrao(int* elementosLista, int tamanho)
         } 
     }   
     
-    if (resultado >= 1)
-    {
-        printf("Resultado: Padrao encontrado.\n");
-    }
-    else
-    {
-        printf("Resultado: Padrao nao encontrado.\n");
-    }
+   // if (resultado >= 1) printf("Resultado: Padrao encontrado.\n");
+	//else printf("Resultado: Padrao nao encontrado.\n");
 }
 
 
@@ -124,10 +156,8 @@ int main ()
 	fscanf(arquivo, "%d", &qtdItens);
 
     //Escaneia cada elemento e insere no vetor
-	for (int i = 0; i < qtdItens; i++)
-    {
-        fscanf(arquivo, "%d", &elementosLista[i]);
-    }
-    
-    procurarPadrao(elementosLista, qtdItens);
+	for (int i = 0; i < qtdItens; i++) fscanf(arquivo, "%d", &elementosLista[i]);
+
+	reduzPadrao(elementosLista,qtdItens);
+   // procurarPadrao(elementosLista, qtdItens);
 }
