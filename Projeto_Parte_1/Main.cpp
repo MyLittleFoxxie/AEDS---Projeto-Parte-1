@@ -1,59 +1,17 @@
 /****************
-
 LAED1 - Projeto Parte 1
-
 Alunos(as): Vitor Brandão Raposo e Gabriel Bernalle
-
 Data:19/03/21
-
 ****************/
 #include <stdlib.h>
 #include <stdio.h>
 
-void reduzPadrao(int* elementosLista, int tamanho);
-void procurarPadrao(int* elementosLista, int tamanho);
-
-void mapeiaPadrao(int* elementosLista, int tamanho){
-	int listaFinal[tamanho];
-
-	for(int i = 0; i < tamanho; i++){
-		if(elementosLista[i] == 0) listaFinal[i] = 1; 
-		if(elementosLista[i] == 128) listaFinal[i] = 2; 
-		if(elementosLista[i] == 255) listaFinal[i] = 3; 
-	}
-
-	procurarPadrao(listaFinal, tamanho);
-}
-
-void reduzPadrao(int* elementosLista, int tamanho){
-	int *auxList;
-	auxList = (int*) malloc(tamanho * sizeof (int));
-	auxList[0] = elementosLista[0];
-	int aux = elementosLista[0];
-	int j = 0;
-
-	for(int i = 0; i < tamanho; i++){
-		if(elementosLista[i] != aux){
-			j++;
-			auxList[j] = elementosLista[i];
-			aux = elementosLista[i];
-			printf("%d ",auxList[j]); //-- Funfando --
-		}
-	}
-
-	mapeiaPadrao(auxList, j+1);
-}
-
-void procurarPadrao(int* elementosLista, int tamanho)
+//Estamos buscando a sequência 1 3 2 3 1 em um arquivo texto
+void procurarPadrao(int* elementosLista, int qtdItens)
 {
-	printf("\n");
-	for(int i = 0; i < tamanho; i++) printf("%d ",elementosLista[i]);
-	printf("\n%d", tamanho);// -- Tá chegando os números certos --
+    int padrao = 0, resultado = 0;
 
-    int padrao = 0;
-    int resultado = 0;
-
-    for (int i = 0; i < tamanho; i++)
+    for (int i = 0; i < qtdItens; i++)
     {
         //Um case para cada etapa do padrão
         switch (padrao)
@@ -62,13 +20,13 @@ void procurarPadrao(int* elementosLista, int tamanho)
             case 0:
                 switch (elementosLista[i])
                 {
-                case 1:
-                    padrao++;
-                    break;
+                    case 1:
+                        padrao = 1;
+                        break;
 
-                default:
-                    padrao = 0;
-                    break;
+                    default:
+                        padrao = 0;
+                        break;
                 }
                 break;
 
@@ -76,13 +34,17 @@ void procurarPadrao(int* elementosLista, int tamanho)
             case 1:
                 switch (elementosLista[i])
                 {
-                case 3:
-                    padrao++;
-                    break;
+                    case 3:
+                        padrao = 2;
+                        break;
 
-                default:
-                    padrao = 0;
-                    break;
+                    case 1:
+                        padrao = 1;
+                        break;
+
+                    default:
+                        padrao = 0;
+                        break;
                 }
                 break;
 
@@ -90,13 +52,17 @@ void procurarPadrao(int* elementosLista, int tamanho)
             case 2:
                 switch (elementosLista[i])
                 {
-                case 2:
-                    padrao++;
-                    break;
+                    case 2:
+                        padrao = 3;
+                        break;
 
-                default:
-                    padrao = 0;
-                    break;
+                    case 1:
+                        padrao = 1;
+                        break;
+
+                    default:
+                        padrao = 0;
+                        break;
                 }
                 break;
 
@@ -104,13 +70,17 @@ void procurarPadrao(int* elementosLista, int tamanho)
             case 3:
                 switch (elementosLista[i])
                 {
-                case 3:
-                    padrao++;
-                    break;
+                    case 3:
+                        padrao = 4;
+                        break;
 
-                default:
-                    padrao = 0;
-                    break;
+                    case 1:
+                        padrao = 1;
+                        break;
+
+                    default:
+                        padrao = 0;
+                        break;
                 }
                 break;
 
@@ -118,14 +88,14 @@ void procurarPadrao(int* elementosLista, int tamanho)
             case 4:
                 switch (elementosLista[i])
                 {
-                case 1:
-                    padrao++;
-                    resultado++;
-                    break;
+                    case 1:
+                        padrao = 5;
+                        resultado = 1;
+                        break;
 
-                default:
-                    padrao = 0;
-                    break;
+                    default:
+                        padrao = 0;
+                        break;
                 }
                 break; 
 
@@ -135,29 +105,80 @@ void procurarPadrao(int* elementosLista, int tamanho)
         } 
     }   
     
-   // if (resultado >= 1) printf("Resultado: Padrao encontrado.\n");
-	//else printf("Resultado: Padrao nao encontrado.\n");
+    if (resultado == 1)
+    {
+        printf("Resultado: Padrao encontrado.\n");
+    } 
+    else
+    {
+        printf("Resultado: Padrao nao encontrado.\n");
+    }
 }
 
 
-//Estamos buscando a sequência 1 3 2 3 1 em um arquivo texto
+void mapeiaPadrao(int* elementosLista, int qtdItens)
+{
+	int listaFinal[qtdItens];
+
+	for(int i = 0; i < qtdItens; i++){
+		if(elementosLista[i] == 0) listaFinal[i] = 1; 
+		if(elementosLista[i] == 128) listaFinal[i] = 2; 
+		if(elementosLista[i] == 255) listaFinal[i] = 3; 
+	}
+
+	procurarPadrao(listaFinal, qtdItens);
+}
+
+
+void reduzPadrao(int* elementosLista, int qtdItens)
+{
+	int *auxList;
+	auxList = (int*) malloc(qtdItens * sizeof (int));
+	auxList[0] = elementosLista[0];
+	int aux = elementosLista[0];
+	int j = 0;
+
+	for(int i = 0; i < qtdItens; i++){
+		if(elementosLista[i] != aux){
+			j++;
+			auxList[j] = elementosLista[i];
+			aux = elementosLista[i];
+		}
+	}
+
+    qtdItens = j + 1;
+
+	mapeiaPadrao(auxList, qtdItens);
+}
+
+
 int main () 
 {
     FILE *arquivo;
     char nomeArquivo[100];
     int qtdItens;
-    int elementosLista[qtdItens];
 
 	printf("Digite o nome do arquivo: ");
 	scanf("%s", nomeArquivo);
 	arquivo = fopen(nomeArquivo, "r");
 
+    if (arquivo == NULL){
+        printf("\nERROR: IMPOSSIBLE TO OPEN THE FILE");
+        exit(1);
+    }
+
     //Escaneia a quantidade de itens
 	fscanf(arquivo, "%d", &qtdItens);
 
+    int elementosLista[qtdItens];
+
     //Escaneia cada elemento e insere no vetor
-	for (int i = 0; i < qtdItens; i++) fscanf(arquivo, "%d", &elementosLista[i]);
+	for (int i = 0; i < qtdItens; i++)
+    {    
+        fscanf(arquivo, "%d", &elementosLista[i]);
+    }
 
 	reduzPadrao(elementosLista,qtdItens);
-   // procurarPadrao(elementosLista, qtdItens);
+
+    fclose(arquivo);
 }
