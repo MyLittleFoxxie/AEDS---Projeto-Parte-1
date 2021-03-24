@@ -39,7 +39,6 @@ void procurarPadrao(int* elementosLista, int qtdItens)
 
             break;
         }
-        
     }
     
     if (resultado == 1)
