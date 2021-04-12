@@ -6,7 +6,6 @@ Data: 08/04/21
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/time.h>
-#define qtdLinhas 10
 
 /* ========================================================================= */
 
